@@ -2,11 +2,12 @@ var p1wins = 0;
 var p2wins = 0;
 var draws = 0;
 var winner = "";
-var logic  =  {rock : {name: "Rock", defeats: ["scissors","lizard"]},
-                 paper: {name: "Paper", defeats: ["rock", "spock"]},
-                 scissors: {name: "Scissors", defeats: ["paper", "lizard"]},
-                 lizard: {name: "Lizard", defeats:["paper","spock"]},
-                 spock: {name: "Spock", defeats:["scissors","rock"]}
+var tagline = "";
+var logic  =  {rock : {name: "Rock", defeats: ["scissors","lizard"], verb: "crushes"},
+                 paper: {name: "Paper", defeats: ["rock", "spock"], verb: "wrapps"},
+                 scissors: {name: "Scissors", defeats: ["paper", "lizard"], verb: "cuts"},
+                 lizard: {name: "Lizard", defeats:["paper","spock"], verb: "poisons"},
+                 spock: {name: "Spock", defeats:["scissors","rock"], verb: "prospers over"}
                 };
 
 var names = Object.keys(logic);
@@ -30,12 +31,14 @@ function detectWin(p1answer, p2answer) {
     draws++;
   } else {
     p1obj = logic[p1answer];
-    console.log(p1obj.defeats);
+    p2obj = logic[p2answer];
     if((jQuery.inArray(p2answer, p1obj.defeats))==0 ){
       winner = "You Win!";
+      tagline = (p1obj.name + " " + p1obj.verb + " " + p2obj.name);
       p1wins++;
     } else {
       winner = "You Lose!";
+      tagline = (p2obj.name + " " + p2obj.verb + " " + p1obj.name);
       p2wins++;
     }
   }
@@ -47,6 +50,6 @@ function writeAnswers(p1answer, p2answer) {
 }
 
 function writeResults() {
-  var htmlstring = "<h2>Results:</h2><p><strong>" + winner + "</p><p><strong>Total wins for p1: " + p1wins + "</p><p>Total wins for p2: " + p2wins + "</p><p>Total draws: " + draws + "</p>";
+  var htmlstring = "<h2>Results:</h2><p><strong>" + winner + "</p><p><strong>" + tagline + "</strong></p><p>Total wins for p1: " + p1wins + "</p><p>Total wins for p2: " + p2wins + "</p><p>Total draws: " + draws + "</p>";
   $('#results').html(htmlstring);
 }
