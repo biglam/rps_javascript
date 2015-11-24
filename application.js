@@ -14,7 +14,7 @@ $('#submit').click(function() {
 });
 
 function makeComputerMove() { 
-  var compmove = Math.round(Math.random()*5);
+  var compmove = Math.round(Math.random()*4);
   switch(compmove) {
     case 0:
       return "rock";
