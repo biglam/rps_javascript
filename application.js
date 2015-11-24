@@ -2,11 +2,17 @@ var p1wins = 0;
 var p2wins = 0;
 var draws = 0;
 var winner = "";
+var logic  =  {rock : {name: "Rock", defeats: ["scissors","lizard"]},
+                 paper: {name: "Paper", defeats: ["rock", "spock"]},
+                 scissors: {name: "Scissors", defeats: ["paper", "lizard"]},
+                 lizard: {name: "Lizard", defeats:["paper","spock"]},
+                 spock: {name: "Spock", defeats:["scissors","rock"]}
+                };
+
+var names = Object.keys(logic);
 
 $('#submit').click(function() {
   var p1answer = $('#p1choice').val();
-  // compare and output
-  // log scores
   p2answer = makeComputerMove();
   detectWin(p1answer, p2answer);
   writeAnswers(p1answer, p2answer);
@@ -14,37 +20,11 @@ $('#submit').click(function() {
 });
 
 function makeComputerMove() { 
-  var compmove = Math.round(Math.random()*4);
-  switch(compmove) {
-    case 0:
-      return "rock";
-      break;
-    case 1:
-      return "paper";
-      break;
-    case 2:
-      return "scissors";
-      break;
-    case 3:
-      return "lizard";
-      break;
-    case 4:
-      return "spock";
-      break;
-  }
+  return names[Math.round(Math.random()*4)];
 }
 
 
-
 function detectWin(p1answer, p2answer) {
-  
-  var logic  =  {rock : {name: "Rock", defeats: ["scissors","lizard"]},
-                   paper: {name: "Paper", defeats: ["rock", "spock"]},
-                   scissors: {name: "Scissors", defeats: ["paper", "lizard"]},
-                   lizard: {name: "Lizard", defeats:["paper","spock"]},
-                   spock: {name: "Spock", defeats:["scissors","rock"]}
-                  };
-
   if (p1answer == p2answer) {
     winner = "Its a draw";
     draws++;
@@ -67,6 +47,6 @@ function writeAnswers(p1answer, p2answer) {
 }
 
 function writeResults() {
-  var htmlstring = "<p>Results:</p><p><strong>" + winner + "</p><p><strong>Total wins for p1: " + p1wins + "</p><p>Total wins for p2: " + p2wins + "</p><p>Total draws: " + draws + "</p>";
+  var htmlstring = "<h2>Results:</h2><p><strong>" + winner + "</p><p><strong>Total wins for p1: " + p1wins + "</p><p>Total wins for p2: " + p2wins + "</p><p>Total draws: " + draws + "</p>";
   $('#results').html(htmlstring);
 }
