@@ -14,16 +14,11 @@ var names = Object.keys(logic);
 
 $('#submit').click(function() {
   var p1answer = $('#p1choice').val();
-  p2answer = makeComputerMove();
+  p2answer = names[Math.round(Math.random()*4)];;
   detectWin(p1answer, p2answer);
   writeAnswers(p1answer, p2answer);
   writeResults();
 });
-
-function makeComputerMove() { 
-  return names[Math.round(Math.random()*4)];
-}
-
 
 function detectWin(p1answer, p2answer) {
   if (p1answer == p2answer) {
